@@ -2,22 +2,37 @@ from models import Survey, Answer, db
 from app import app
 
 with app.app_context():
+    db.drop_all()
     db.create_all()
-    survey1 = Survey(question="What is your favorite color?")
-    survey2 = Survey(question="What is your favorite animal?")
-    survey3 = Survey(question="What is your favorite season?")
+    survey1 = Survey(question="What is the capital of France?")
+    survey2 = Survey(question="What is the largest planet in our Solar System?")
+    survey3 = Survey(question="Which element has the chemical symbol O?")
 
     db.session.add_all([survey1, survey2, survey3])
     db.session.commit()
 
-    answer1 = Answer(survey_id=survey1.id, answer="Blue")
-    answer2 = Answer(survey_id=survey1.id, answer="Green")
-    answer3 = Answer(survey_id=survey2.id, answer="Cat")
-    answer4 = Answer(survey_id=survey2.id, answer="Dog")
-    answer5 = Answer(survey_id=survey3.id, answer="Spring")
-    answer6 = Answer(survey_id=survey3.id, answer="Winter")
-
-    db.session.add_all([answer1, answer2, answer3, answer4, answer5, answer6])
+    db.session.add_all(
+        [
+            Answer(survey_id=survey1.id, answer="Berlin", is_correct=False),
+            Answer(survey_id=survey1.id, answer="Madrid", is_correct=False),
+            Answer(survey_id=survey1.id, answer="Paris", is_correct=True),
+            Answer(survey_id=survey1.id, answer="Rome", is_correct=False),
+        ]
+    )
+    db.session.add_all(
+        [
+            Answer(survey_id=survey2.id, answer="Earth", is_correct=False),
+            Answer(survey_id=survey2.id, answer="Jupiter", is_correct=True),
+            Answer(survey_id=survey2.id, answer="Mars", is_correct=False),
+            Answer(survey_id=survey2.id, answer="Venus", is_correct=False),
+        ]
+    )
+    db.session.add_all(
+        [
+            Answer(survey_id=survey3.id, answer="Hydrogen", is_correct=False),
+            Answer(survey_id=survey3.id, answer="Oxygen", is_correct=True),
+            Answer(survey_id=survey3.id, answer="Nitrogen", is_correct=False),
+            Answer(survey_id=survey3.id, answer="Carbon", is_correct=False),
+        ]
+    )
     db.session.commit()
-
-    print("Happy " * 10000000)

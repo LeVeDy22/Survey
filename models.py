@@ -17,3 +17,4 @@ class Answer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     answer = db.Column(db.String(100), nullable=False)
+    is_correct = db.Column(db.Boolean, default=False)
